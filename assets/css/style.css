@@ -33,6 +33,14 @@ body {
 .powered-by {
     display: none;
 }
+#add-button form input {
+    width: calc(65% - 5px) !important;
+    margin-right: 5px !important;
+    border: 0 !important;
+}
+#add-button form button {
+    width: 35% !important;
+}
 
 
 /* ----------------------------------------------------------------------------
@@ -53,7 +61,6 @@ body {
 
 }
 @media (min-width: 768px) {
-
 }
 @media (min-width: 992px) {
 
