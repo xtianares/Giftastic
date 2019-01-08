@@ -1,0 +1,63 @@
+/* ----------------------------------------------------------------------------
+    Project Styles
+----------------------------------------------------------------------------- */
+html {
+    min-height: 100%;
+    position: relative;
+}
+body {
+    font-family: 'Open Sans', 'Trebuchet MS', Verdana, Arial, Helvetica, sans-serif;
+    text-rendering: optimizeLegibility;
+    color: #444;
+    background-color: #56A8E3;
+    background: linear-gradient(45deg, #23A6D5, #23D5AB);
+    /* background-image: linear-gradient(to right top, #164ea2, #0081d1, #00aec3, #00d37f, #a8eb12); */
+    background-size: cover;
+    background-position: 50% 50%;
+    background-attachment: fixed;
+    overflow-y: scroll;
+}
+.container {
+    max-width: 1200px;
+}
+.container-fluid.but-fixed {
+    max-width: 1230px;
+}
+.navbar-dark {
+    background-color: #000 !important;
+}
+.navbar-brand {
+    margin: 0 auto;
+    font-weight: 600;
+}
+.powered-by {
+    display: none;
+}
+
+
+/* ----------------------------------------------------------------------------
+    Page Media Queries
+----------------------------------------------------------------------------- */
+@media (min-width: 576px) {
+    .container-fluid.but-fixed {
+        padding-left: 30px;
+        padding-right: 30px;
+    }
+    .navbar-brand {
+        margin: 0 15px;
+    }
+    .powered-by {
+        display: inline-block;
+        margin-left: auto;
+    }
+
+}
+@media (min-width: 768px) {
+
+}
+@media (min-width: 992px) {
+
+}
+@media (min-width: 1200px) {
+
+}
