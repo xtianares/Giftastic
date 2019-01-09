@@ -23,6 +23,11 @@ body {
 .container-fluid.but-fixed {
     max-width: 1230px;
 }
+.navbar {
+    padding-top: 15px;
+    padding-bottom: 15px;
+    flex-flow: column nowrap; !important;
+}
 .navbar-dark {
     background-color: #000 !important;
 }
@@ -30,16 +35,37 @@ body {
     margin: 0 auto;
     font-weight: 600;
 }
+form.add-button {
+    width: 100%;
+    justify-content: center !important;
+}
+form.add-button input {
+    width: calc(100% - 10px) !important;
+    margin-left: 5px !important;
+    margin-right: 5px !important;
+    border: 0 !important;
+    color: #fff !important;
+    border-bottom: 1px solid #777 !important;
+    border-radius: 0;
+    background: transparent !important;
+}
+form.add-button input:focus {
+    box-shadow: none;
+}
+form.add-button button {
+    width: 120px !important;
+    border: 0;
+}
+
 .powered-by {
     display: none;
 }
-#add-button form input {
-    width: calc(65% - 5px) !important;
-    margin-right: 5px !important;
-    border: 0 !important;
+#buttons-container {
+    margin-bottom: 20px;
 }
-#add-button form button {
-    width: 35% !important;
+#buttons-container button {
+    display: inline-block;
+    margin: 5px 5px 5px 0 !important;
 }
 
 
@@ -51,6 +77,21 @@ body {
         padding-left: 30px;
         padding-right: 30px;
     }
+    .navbar {
+        flex-flow: row nowrap; !important;
+    }
+    form.add-button input {
+        width: calc(65% - 10px) !important;
+    }
+    form.add-button {
+        justify-content: flex-end !important;
+    }
+
+}
+@media (min-width: 768px) {
+
+}
+@media (min-width: 992px) {
     .navbar-brand {
         margin: 0 15px;
     }
@@ -58,11 +99,14 @@ body {
         display: inline-block;
         margin-left: auto;
     }
-
-}
-@media (min-width: 768px) {
-}
-@media (min-width: 992px) {
+    form.add-button {
+        padding: 0 20px;
+        width: 100%;
+        justify-content: center !important;
+    }
+    form.add-button input {
+        width: calc(75% - 5px) !important;
+    }
 
 }
 @media (min-width: 1200px) {
