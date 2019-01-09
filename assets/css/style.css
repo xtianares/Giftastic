@@ -107,6 +107,9 @@ form.add-button button {
     form.add-button input {
         width: calc(75% - 5px) !important;
     }
+    .card-columns {
+        column-count: 4;
+    }
 
 }
 @media (min-width: 1200px) {
