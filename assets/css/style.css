@@ -68,6 +68,13 @@ form.add-button button {
     margin: 5px 5px 5px 0 !important;
 }
 
+.card-columns {
+    column-count: 1;
+}
+.card-columns .card {
+    margin-bottom: 1.25rem;
+}
+
 
 /* ----------------------------------------------------------------------------
     Page Media Queries
@@ -86,9 +93,15 @@ form.add-button button {
     form.add-button {
         justify-content: flex-end !important;
     }
+    .card-columns {
+        column-count: 2;
+    }
 
 }
 @media (min-width: 768px) {
+    .card-columns {
+        column-count: 3;
+    }
 
 }
 @media (min-width: 992px) {

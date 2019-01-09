@@ -26,7 +26,6 @@ function displayGifs() {
     .done(function(results) {
         let data = results.data;
         console.log(data);
-
         for (var i = 0; i < data.length; i++) {
             let { rating, images: {fixed_width} } = data[i];
             let gifDiv = `
@@ -37,7 +36,6 @@ function displayGifs() {
                         </div>
                     </div>
                 `;
-
             $("#gifs-container").prepend(gifDiv);
         }
     })
@@ -48,12 +46,15 @@ function displayGifs() {
 // trigger to display the gifs
 $('#buttons-container').on('click', 'button', displayGifs);
 
-// This function handles events where a movie button is clicked
+// function to add more buttons
 $("#add-button").on("click", function(event) {
     event.preventDefault();
     let movie = $("#search-input").val().trim();
-    movies.push(movie);
-    renderButtons();
+    // checking if the movie is already in the array, prevent adding if it already exist
+    if (movie !== '' && movies.indexOf(movie) < 0) {
+        movies.push(movie);
+        renderButtons();
+    }
 });
 
 renderButtons();
