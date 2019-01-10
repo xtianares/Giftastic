@@ -14,10 +14,11 @@ function renderButtons() {
     }
 }
 
-function displayGifs() {
+function displayGifs(more) {
     let movie = $(this).attr("data-name"),
         api_key = "2waeg1EgKzge3SHpASXilZ93joi92FC2",
-        queryURL = "https://api.giphy.com/v1/gifs/search?q=" + movie + "&api_key=" + api_key + "&limit=10";
+        offset = Math.floor(Math.random() * 25),
+        queryURL = "https://api.giphy.com/v1/gifs/search?q=" + movie + "&api_key=" + api_key + "&offset=" + offset + "&limit=10";
 
     $.ajax({
         url: queryURL,
@@ -25,24 +26,28 @@ function displayGifs() {
     })
     .done(function(results) {
         let data = results.data;
+        let gifDiv = '';
         console.log(data);
         for (var i = 0; i < data.length; i++) {
-            let { rating, images: {fixed_width} } = data[i];
-            let gifDiv = `
+            let { rating, images: {fixed_width_still, fixed_width} } = data[i];
+            gifDiv += `
                     <div class="card border-0">
-                        <img class="card-img-top" src="${fixed_width.url}">
+                        <img class="card-img-top paused" src="${fixed_width_still.url}" data-play="${fixed_width.url}">
                         <div class="card-body">
                             <p class="card-text">Rating: ${rating}</p>
                         </div>
                     </div>
                 `;
-            $("#gifs-container").prepend(gifDiv);
         }
+        // $("#gifs-container").empty();
+        $("#gifs-container").empty().prepend(gifDiv);
+        $("#show-more").show();
     })
     .fail(function(err) {
         throw err;
     });
 }
+
 // trigger to display the gifs
 $('#buttons-container').on('click', 'button', displayGifs);
 
