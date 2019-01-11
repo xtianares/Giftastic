@@ -2,23 +2,23 @@
 // destructure api results
 // html templates for the gif elements variables
 
-var movies = ["The Matrix", "The Notebook", "Mr. Nobody", "The Lion King"];
+var heroes = ["Superman", "Batman", "Deadpool", "Black Panther", "Iron Man", "Captain America", "Wonder Woman", "Aquaman"];
 
 function renderButtons() {
     $("#buttons-container").empty();
-    for (var i = 0; i < movies.length; i++) {
+    for (var i = 0; i < heroes.length; i++) {
         let btn = `
-                <button class="btn btn-success" type="button" data-name="${movies[i]}">${movies[i]}</button>
+                <button class="btn btn-success" type="button" data-name="${heroes[i]}">${heroes[i]}</button>
             `;
         $("#buttons-container").append(btn);
     }
 }
-
 function displayGifs(more) {
-    let movie = $(this).attr("data-name"),
+    let hero = $(this).attr("data-name"),
         api_key = "2waeg1EgKzge3SHpASXilZ93joi92FC2",
         offset = Math.floor(Math.random() * 25),
-        queryURL = "https://api.giphy.com/v1/gifs/search?q=" + movie + "&api_key=" + api_key + "&offset=" + offset + "&limit=10";
+        limit = 10
+        queryURL = "https://api.giphy.com/v1/gifs/search?q=" + hero + "&api_key=" + api_key + "&offset=" + offset + "&limit=" + limit;
 
     $.ajax({
         url: queryURL,
@@ -29,12 +29,13 @@ function displayGifs(more) {
         let gifDiv = '';
         console.log(data);
         for (var i = 0; i < data.length; i++) {
-            let { rating, images: {fixed_width_still, fixed_width} } = data[i];
+            let { rating, embed_url, images: {fixed_width_still, fixed_width} } = data[i];
             gifDiv += `
                     <div class="card border-0">
-                        <img class="card-img-top paused" src="${fixed_width_still.url}" data-play="${fixed_width.url}">
+                        <img class="card-img-top gif" src="${fixed_width_still.url}" data-paused="${fixed_width_still.url}"  data-play="${fixed_width.url}" data-state="paused">
                         <div class="card-body">
-                            <p class="card-text">Rating: ${rating}</p>
+                            <p class="card-text">Rating: <span class="rating-value">${rating}</span></p>
+                            <p class="card-text">Embed URL: <a class="embed-url" href="${embed_url}" target="_blank">${embed_url}</a></p>
                         </div>
                     </div>
                 `;
@@ -51,13 +52,25 @@ function displayGifs(more) {
 // trigger to display the gifs
 $('#buttons-container').on('click', 'button', displayGifs);
 
+// triggger to play/pause Gifs
+$("#gifs-container").on("click", "img.gif", function() {
+    var state = $(this).data("state");
+    if (state === "paused") {
+        $(this).attr("src", $(this).data("play"));
+        $(this).data("state", "play");
+    } else {
+        $(this).attr("src", $(this).data("paused"));
+        $(this).data("state", "paused");
+    }
+});
+
 // function to add more buttons
 $("#add-button").on("click", function(event) {
     event.preventDefault();
-    let movie = $("#search-input").val().trim();
-    // checking if the movie is already in the array, prevent adding if it already exist
-    if (movie !== '' && movies.indexOf(movie) < 0) {
-        movies.push(movie);
+    let hero = $("#search-input").val().trim();
+    // checking if the hero is already in the array, prevent adding if it already exist
+    if (hero !== '' && heroes.indexOf(hero) < 0) {
+        heroes.push(hero);
         renderButtons();
     }
 });
