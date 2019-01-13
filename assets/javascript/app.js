@@ -1,8 +1,7 @@
-// spinner during api call
-// destructure api results
-// html templates for the gif elements variables
+let heroes = ["Superman", "Batman", "Deadpool", "Black Panther", "Iron Man", "Captain America", "Wonder Woman", "Aquaman"];
 
-var heroes = ["Superman", "Batman", "Deadpool", "Black Panther", "Iron Man", "Captain America", "Wonder Woman", "Aquaman"];
+let currentLimit = 0,
+    lastQuery = '';
 
 function renderButtons() {
     $("#buttons-container").empty();
@@ -13,12 +12,17 @@ function renderButtons() {
         $("#buttons-container").append(btn);
     }
 }
-function displayGifs(more) {
-    let hero = $(this).attr("data-name"),
+function displayGifs(query, showMore) {
+    let hero = query,
         api_key = "2waeg1EgKzge3SHpASXilZ93joi92FC2",
-        offset = Math.floor(Math.random() * 25),
-        limit = 10
+        // offset = Math.floor(Math.random() * 25),
+        offset = 0,
+        limit = showMore == true ? currentLimit + 10 : 10,
         queryURL = "https://api.giphy.com/v1/gifs/search?q=" + hero + "&api_key=" + api_key + "&offset=" + offset + "&limit=" + limit;
+
+        currentLimit = lastQuery != query ? 0 : currentLimit,
+
+    lastQuery = query;
 
     $.ajax({
         url: queryURL,
@@ -28,7 +32,7 @@ function displayGifs(more) {
         let data = results.data;
         let gifDiv = '';
         console.log(data);
-        for (var i = 0; i < data.length; i++) {
+        for (var i = 0 + currentLimit; i < data.length; i++) {
             let { rating, embed_url, images: {fixed_width_still, fixed_width} } = data[i];
             gifDiv += `
                     <div class="card border-0">
@@ -40,9 +44,18 @@ function displayGifs(more) {
                     </div>
                 `;
         }
-        // $("#gifs-container").empty();
-        $("#gifs-container").empty().prepend(gifDiv);
+
+        // setting current limit to the number of gifs displayed
+        currentLimit  = limit;
+
+        if (!showMore) {
+            $("#gifs-container").empty().append(gifDiv);
+        }
+        else {
+            $("#gifs-container").append(gifDiv);
+        }
         $("#show-more").show();
+        $("#show-more button").attr('data-name', lastQuery);
     })
     .fail(function(err) {
         throw err;
@@ -50,7 +63,16 @@ function displayGifs(more) {
 }
 
 // trigger to display the gifs
-$('#buttons-container').on('click', 'button', displayGifs);
+$('#buttons-container').on('click', 'button', function() {
+    let query = $(this).attr("data-name");
+    $("#buttons-container button").removeAttr("disabled");
+    $(this).attr("disabled", "disabled");
+    displayGifs(query);
+});
+$('#show-more').on('click', 'button', function() {
+    let query = $(this).attr("data-name");
+    displayGifs(query, true);
+});
 
 // triggger to play/pause Gifs
 $("#gifs-container").on("click", "img.gif", function() {
@@ -68,8 +90,20 @@ $("#gifs-container").on("click", "img.gif", function() {
 $("#add-button").on("click", function(event) {
     event.preventDefault();
     let hero = $("#search-input").val().trim();
-    // checking if the hero is already in the array, prevent adding if it already exist
-    if (hero !== '' && heroes.indexOf(hero) < 0) {
+    let heroCheck = false;
+    for (let i = 0; i < heroes.length; i++) {
+        let heroInArray = heroes[i];
+        // console.log(heroInArray);
+        // console.log(hero);
+        if (heroInArray.toLowerCase() == hero.toLowerCase()) {
+            console.log(heroCheck);
+            heroCheck = true;
+            console.log(heroCheck);
+            break;
+        }
+    }
+    // checking if the hero is already in the array, add button if it's not
+    if (hero !== '' && !heroCheck) {
         heroes.push(hero);
         renderButtons();
     }
