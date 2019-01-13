@@ -120,7 +120,6 @@ $('#gifs-container').on('click', '.fave-icon', function() {
     localStorage.setItem('liked', JSON.stringify(liked))
 });
 
-
 // function to add more buttons
 $("#add-button").on("click", function(event) {
     event.preventDefault();
