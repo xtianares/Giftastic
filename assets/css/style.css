@@ -99,7 +99,15 @@ form.add-button button {
     width: 100%;
     max-width: calc(100% - 30px);
 }
-
+.fave-icon {
+    display: block;
+    width: 25px;
+    height: 25px;
+    background: transparent url(../images/fave-outline.svg) no-repeat 50% 50% / cover;
+}
+.fave-icon.liked {
+    background-image: url(../images/fave-filled.svg);
+}
 .rating-value {
     text-transform: uppercase;
 }
