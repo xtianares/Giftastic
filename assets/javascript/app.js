@@ -107,17 +107,18 @@ $("#gifs-container").on("click", "img.gif", function() {
 $('#gifs-container').on('click', '.fave-icon', function() {
     event.preventDefault();
     let gifID = $(this).data("id")
-    $(this).toggleClass('liked');
     if (liked.indexOf(gifID) < 0) {
+        $(this).addClass('liked');
         liked.push(gifID);
     }
     else {
+        $(this).removeClass('liked');
         var index = liked.indexOf(gifID);
         if (index > -1) {
             liked.splice(index, 1);
         }
     }
-    localStorage.setItem('liked', JSON.stringify(liked))
+    localStorage.setItem('liked', JSON.stringify(liked));
 });
 
 // function to add more buttons

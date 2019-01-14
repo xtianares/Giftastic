@@ -66,6 +66,7 @@ form.add-button button {
 #buttons-container button {
     display: inline-block;
     margin: 5px 5px 5px 0 !important;
+    text-transform: capitalize;
 }
 .card-columns {
     column-count: 1;
