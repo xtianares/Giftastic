@@ -77,21 +77,21 @@ function displayGifs(query, showMore) {
 }
 
 // trigger to display the gifs
-$('#buttons-container').on('click', 'button', function() {
+$('#buttons-container').on('click', 'button', function(event) {
     event.preventDefault();
     let query = $(this).attr("data-name");
     $("#buttons-container button").removeAttr("disabled");
     $(this).attr("disabled", "disabled");
     displayGifs(query);
 });
-$('#show-more').on('click', 'button', function() {
+$('#show-more').on('click', 'button', function(event) {
     event.preventDefault();
     let query = $(this).attr("data-name");
     displayGifs(query, true);
 });
 
 // triggger to play/pause Gifs
-$("#gifs-container").on("click", "img.gif", function() {
+$("#gifs-container").on("click", "img.gif", function(event) {
     event.preventDefault();
     var state = $(this).data("state");
     if (state === "paused") {
@@ -104,7 +104,7 @@ $("#gifs-container").on("click", "img.gif", function() {
 });
 
 // favorite icon
-$('#gifs-container').on('click', '.fave-icon', function() {
+$('#gifs-container').on('click', '.fave-icon', function(event) {
     event.preventDefault();
     let gifID = $(this).data("id")
     if (liked.indexOf(gifID) < 0) {
